@@ -1,0 +1,99 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% GENERATED FILE -- do not edit main.tex by hand.
+% Edit the source of truth instead:
+%   - CV content (name, work, education, talks, service): assets/json/resume.json
+%   - Publications:                                       _bibliography/papers.bib
+% Then regenerate with: python3 bin/generate_cv.py
+%
+% Styling based on the "ModernCV" LaTeX Template (LaTeXTemplates.com, CC BY-NC-SA 3.0)
+% This uses custom Jinja delimiters (see bin/generate_cv.py) instead of the
+% Jinja defaults, because LaTeX's own braces would otherwise collide with them.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt,a4paper,sans]{moderncv}
+
+\moderncvstyle{classic}
+\usepackage[sorting=ydnt, maxbibnames=99, backend=bibtex]{biblatex}
+
+% Single source of truth: the same .bib file that feeds the website's
+% publications page (jekyll-scholar) via _config.yml's `scholar.source`.
+\addbibresource{../_bibliography/papers.bib}
+\nocite{*}
+
+\moderncvcolor{blue}
+\usepackage{textcomp}
+\usepackage[scale=0.75]{geometry}
+\renewcommand*\httplink[2][]{{\urlstyle{sf}\expandafter\href#2}}
+
+\firstname{\VAR{basics.first_name}}
+\familyname{\VAR{basics.last_name}}
+
+\title{Curriculum Vitae}
+\address{}{}
+\email{\VAR{basics.email}}
+\homepage{{\VAR{basics.homepage}}{}}
+
+\begin{document}
+
+\makecvtitle
+
+%----------------------------------------------------------------------------------------
+%	EMPLOYMENT (terse overview -- see assets/json/resume.json "employment_summary";
+%	the detailed, per-period breakdown with bullets is in Experience below)
+%----------------------------------------------------------------------------------------
+\section{Employment}
+\BLOCK{ for job in employment_summary }
+\cventry{\VAR{job.period}}{\VAR{job.position}}{\VAR{job.name}}{}{\VAR{job.location}}{}
+\BLOCK{ endfor }
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION
+%----------------------------------------------------------------------------------------
+\section{Education}
+\BLOCK{ for edu in education }
+\cventry{\VAR{edu.period}}{\VAR{edu.degree_line}}{\VAR{edu.institution}}{\VAR{edu.body}}{\VAR{edu.location}}{}
+\BLOCK{ endfor }
+
+%----------------------------------------------------------------------------------------
+%	EXPERIENCE (detailed)
+%----------------------------------------------------------------------------------------
+\section{Experience}
+\subsection{Industry Research}
+\BLOCK{ for job in work }
+\cventry{\VAR{job.period}}{\VAR{job.position}}{}{\VAR{job.name}}{\VAR{job.location}}{\VAR{job.body}}
+\BLOCK{ endfor }
+
+\BLOCK{ if academic_research }
+\subsection{Academic Research}
+\BLOCK{ for entry in academic_research }
+\cventry{\VAR{entry.period}}{\VAR{entry.position}}{}{\VAR{entry.name}}{\VAR{entry.location}}{\VAR{entry.body}}
+\BLOCK{ endfor }
+\BLOCK{ endif }
+
+%----------------------------------------------------------------------------------------
+%	TALKS  (assets/json/resume.json: "talks" -- PDF only, not part of the JSONResume
+%	standard, so it does not render on the website's structured CV page)
+%----------------------------------------------------------------------------------------
+\BLOCK{ if talks }
+\newpage
+\subsection{Talks}
+\BLOCK{ for talk in talks }
+\cventry{\VAR{talk.year}}{\VAR{talk.event}}{}{\VAR{talk.location}}{}{\VAR{talk.title}}
+\BLOCK{ endfor }
+\BLOCK{ endif }
+
+%----------------------------------------------------------------------------------------
+%	SERVICE  (assets/json/resume.json: "service" -- PDF only, same reason as Talks)
+%----------------------------------------------------------------------------------------
+\BLOCK{ if service }
+\subsection{Other Professional Activities}
+\BLOCK{ for entry in service }
+\cventry{}{\VAR{entry.role}}{}{\VAR{entry.venues}}{}{}
+\BLOCK{ endfor }
+\BLOCK{ endif }
+
+\closesection{}
+
+% Publications from _bibliography/papers.bib
+\printbibliography
+
+\end{document}

@@ -1,0 +1,35 @@
+_site
+.bundle
+.DS_store
+.idea
+.jekyll-cache
+.jekyll-metadata
+.ruby-version
+.sass-cache
+.tweet-cache
+.venv
+assets/libs/
+assets/rendercv/rendercv_output/*.typ
+al-folio-upgrade-report.md
+node_modules/
+output/playwright/
+test-results/
+vendor
+
+# Python bytecode from bin/ helper scripts
+__pycache__/
+*.pyc
+
+# LaTeX build artifacts (latex-cv/main.pdf is copied to assets/pdf/cv.pdf on build)
+latex-cv/*.aux
+latex-cv/*.bbl
+latex-cv/*.bcf
+latex-cv/*.blg
+latex-cv/*.fdb_latexmk
+latex-cv/*.fls
+latex-cv/*.log
+latex-cv/*.out
+latex-cv/*.pdf
+latex-cv/*.run.xml
+latex-cv/*.synctex.gz
+latex-cv/*-blx.bib
