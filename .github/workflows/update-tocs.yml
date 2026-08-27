@@ -1,16 +1,19 @@
 name: Update TOCs
 # This workflow automatically updates the Table of Contents (TOC) in markdown files
 
-on:
-  push:
-    branches:
-      - main
-      - master
-    paths:
-      - "*.md"
-      - "docs/*.md"
-  workflow_dispatch:
-
+# Disabled 2026-08-27: all triggers commented out at user request (see repo history/PR for context).
+# To re-enable: uncomment the block below and delete this placeholder line, then `gh workflow enable <name>`.
+on: {}
+# on:
+#   push:
+#     branches:
+#       - main
+#       - master
+#     paths:
+#       - "*.md"
+#       - "docs/*.md"
+#   workflow_dispatch:
+#
 permissions:
   contents: write
 

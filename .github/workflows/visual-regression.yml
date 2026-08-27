@@ -1,39 +1,42 @@
 name: Visual regression checks
 
-on:
-  pull_request:
-    branches: [main, master, v1.0-dev]
-    paths:
-      - "_config.yml"
-      - "_data/**"
-      - "_bibliography/**"
-      - "_pages/**"
-      - "_posts/**"
-      - "_projects/**"
-      - "assets/**"
-      - "test/visual/**"
-      - ".github/workflows/visual-regression.yml"
-      - "package.json"
-      - "package-lock.json"
-      - "Gemfile"
-      - "Gemfile.lock"
-  push:
-    branches: [v1.0-dev]
-    paths:
-      - "_config.yml"
-      - "_data/**"
-      - "_bibliography/**"
-      - "_pages/**"
-      - "_posts/**"
-      - "_projects/**"
-      - "assets/**"
-      - "test/visual/**"
-      - ".github/workflows/visual-regression.yml"
-      - "package.json"
-      - "package-lock.json"
-      - "Gemfile"
-      - "Gemfile.lock"
-
+# Disabled 2026-08-27: all triggers commented out at user request (see repo history/PR for context).
+# To re-enable: uncomment the block below and delete this placeholder line, then `gh workflow enable <name>`.
+on: {}
+# on:
+#   pull_request:
+#     branches: [main, master, v1.0-dev]
+#     paths:
+#       - "_config.yml"
+#       - "_data/**"
+#       - "_bibliography/**"
+#       - "_pages/**"
+#       - "_posts/**"
+#       - "_projects/**"
+#       - "assets/**"
+#       - "test/visual/**"
+#       - ".github/workflows/visual-regression.yml"
+#       - "package.json"
+#       - "package-lock.json"
+#       - "Gemfile"
+#       - "Gemfile.lock"
+#   push:
+#     branches: [v1.0-dev]
+#     paths:
+#       - "_config.yml"
+#       - "_data/**"
+#       - "_bibliography/**"
+#       - "_pages/**"
+#       - "_posts/**"
+#       - "_projects/**"
+#       - "assets/**"
+#       - "test/visual/**"
+#       - ".github/workflows/visual-regression.yml"
+#       - "package.json"
+#       - "package-lock.json"
+#       - "Gemfile"
+#       - "Gemfile.lock"
+#
 jobs:
   visual-regression:
     runs-on: ubuntu-latest

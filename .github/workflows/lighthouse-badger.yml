@@ -21,14 +21,17 @@ env:
   DESKTOP_LIGHTHOUSE_PARAMS: "--only-categories=performance,accessibility,best-practices,seo --preset=desktop --throttling.cpuSlowdownMultiplier=1"
 
 # TRIGGERS
-on:
-  page_build:
-  # schedule: # Check your schedule here => https://crontab.guru/
-  #   - cron: '55 23 * * 0' # e.g. every Sunday at 23:55
-  #
-  # THAT'S IT; YOU'RE DONE;
-  workflow_dispatch:
-
+# Disabled 2026-08-27: all triggers commented out at user request (see repo history/PR for context).
+# To re-enable: uncomment the block below and delete this placeholder line, then `gh workflow enable <name>`.
+on: {}
+# on:
+#   page_build:
+#   # schedule: # Check your schedule here => https://crontab.guru/
+#   #   - cron: '55 23 * * 0' # e.g. every Sunday at 23:55
+#   #
+#   # THAT'S IT; YOU'RE DONE;
+#   workflow_dispatch:
+#
 ########################################################################
 # THAT'S IT; YOU DON'T HAVE TO DEFINE ANYTHING IN THE FOLLOWING
 ########################################################################
