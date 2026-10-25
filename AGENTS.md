@@ -27,7 +27,8 @@ bin/build-cv                  # just the CV, in cv/
 
 - With `CV_PDF_REQUIRED=1` (set in CI) a failed PDF build fails the site build; without it, it is a warning.
 - On Ubuntu: `apt-get install latexmk texlive-latex-extra texlive-bibtex-extra texlive-fonts-extra`.
-- The site's baseurl is empty (custom domain www.manovikash.com).
+- Deploys push the built site to the `gh-pages` branch. CI sets the baseurl: empty when a root `CNAME` file exists (custom
+  domain), `/mano_online` otherwise (mavivi0.github.io/mano_online). Locally the baseurl is empty.
 
 ## Theme overrides
 

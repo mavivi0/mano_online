@@ -1,9 +1,9 @@
 name: Deploy site
 
 # Every push to main rebuilds the whole site from content/ (pages, publications, CV page,
-# and the LaTeX CV in cv/) and publishes it to GitHub Pages. The run also keeps cv/main.tex,
-# cv/main.bib and cv/main.pdf as a downloadable "cv" artifact.
-# One-time setup: Settings -> Pages -> Build and deployment -> Source: "GitHub Actions".
+# and the LaTeX CV in cv/) and publishes it by pushing the built site to the gh-pages branch,
+# which GitHub Pages serves (Settings -> Pages -> Deploy from a branch: gh-pages, / (root)).
+# The run also keeps cv/main.tex, cv/main.bib and cv/main.pdf as a downloadable "cv" artifact.
 
 on:
   push:
@@ -12,24 +12,24 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write # push the built site to gh-pages
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  deploy:
+    # The TeX Live, ImageMagick and Ruby setup below is tested on Ubuntu 24.04; move to a newer
+    # image deliberately, not through ubuntu-latest.
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.3.5"
+          ruby-version: "3.3" # latest 3.3.x; newer runner images only ship the latest patch release
           bundler-cache: true
       - name: Setup Python
         uses: actions/setup-python@v7
@@ -45,7 +45,11 @@ jobs:
         env:
           JEKYLL_ENV: production
           CV_PDF_REQUIRED: "1" # fail the deploy instead of publishing a site without a CV PDF
-        run: bundle exec jekyll build
+        # With a CNAME file (the custom domain) the site lives at the root; without one, GitHub
+        # serves it from mavivi0.github.io/<repository name>/.
+        run: |
+          if [ -f CNAME ]; then baseurl=""; else baseurl="/${GITHUB_REPOSITORY#*/}"; fi
+          bundle exec jekyll build --baseurl "$baseurl"
       - name: Keep the LaTeX CV
         uses: actions/upload-artifact@v7
         with:
@@ -58,18 +62,9 @@ jobs:
         run: |
           npm install -g purgecss
           purgecss -c purgecss.config.js
-      - name: Upload site
-        uses: actions/upload-pages-artifact@v4
+      - name: Serve the built site as is
+        run: touch _site/.nojekyll # stops GitHub Pages from running Jekyll over the built files
+      - name: Publish to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: _site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          folder: _site
