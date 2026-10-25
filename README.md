@@ -26,10 +26,10 @@ from `content/` and pushes the result to the `gh-pages` branch, which GitHub Pag
 Nothing generated is committed to `main`; each run also keeps `cv/main.tex`, `cv/main.bib` and `cv/main.pdf` as a downloadable
 artifact.
 
-Until the custom domain is set up, the site is at https://mavivi0.github.io/mano_online/. To move it to www.manovikash.com,
-point the domain's DNS at GitHub Pages, then add a file named `CNAME` to the repository root containing `www.manovikash.com`.
-The next deploy publishes it and builds the site for the root of that domain. (Setting the domain only in Settings → Pages
-would be undone by the next deploy, which replaces the whole `gh-pages` branch.)
+The site is served at https://www.manovikash.com: the `CNAME` file in the repository root names the domain, and the deploy
+publishes it and builds the site for the root of that domain (the domain's DNS, at Squarespace, points at GitHub Pages).
+Without a `CNAME` file the site would be built for https://mavivi0.github.io/mano_online/ instead. Change the domain only through
+`CNAME`: setting it in Settings → Pages is undone by the next deploy, which replaces the whole `gh-pages` branch.
 
 ## Previewing on your Mac
 
