@@ -20,16 +20,7 @@ vendor
 __pycache__/
 *.pyc
 
-# LaTeX build artifacts (latex-cv/main.pdf is copied to assets/pdf/cv.pdf on build)
-latex-cv/*.aux
-latex-cv/*.bbl
-latex-cv/*.bcf
-latex-cv/*.blg
-latex-cv/*.fdb_latexmk
-latex-cv/*.fls
-latex-cv/*.log
-latex-cv/*.out
-latex-cv/*.pdf
-latex-cv/*.run.xml
-latex-cv/*.synctex.gz
-latex-cv/*-blx.bib
+# cv/ is rebuilt from content/ by bin/build-cv; only the template is a source file
+/cv/*
+!/cv/template.tex
+!/cv/README.md
