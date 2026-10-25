@@ -7,7 +7,8 @@
 #   - publications come from papers.bib (see the "Publications" line at the end)
 #
 # Section titles are free text, and sections appear in the order written here
-# (on the web page, Experience always comes first).
+# (on the web page, Experience always comes first). Within a section, the web page lists
+# entries by end date, newest first: write them in that order so the PDF matches.
 # Entry formats:
 #   job:        company, position, location, start_date, end_date, summary, highlights
 #   degree:     institution, degree, area, location, start_date, end_date, summary, highlights
@@ -21,6 +22,7 @@ sections:
     - institution: University of Illinois at Chicago
       degree: PhD
       area: Mathematics
+      location: Chicago, IL
       start_date: 2014
       end_date: 2019
       summary: "Advisor: Prof. Lev Reyzin"
@@ -64,6 +66,16 @@ sections:
           recommendation engine and a BERT-based semantic search system.
         - Built real-time inference pipelines with sub-100ms latency and an A/B testing framework to drive data-driven product decisions.
 
+    - company: University of Illinois at Chicago
+      position: PhD Thesis Research
+      location: Chicago, IL
+      start_date: 2016
+      end_date: 2019
+      highlights:
+        - Designed algorithms for learning graph structure from queries \cite{huang2017network}, graph verification \cite{janardhanan2017graph},
+          and anomaly detection in dynamic networks via non-local curvature \cite{dasgupta2020shape}. Advised by Prof. Bhaskar DasGupta and Prof.
+          Lev Reyzin.
+
     - company: Google Research
       position: Research Intern
       location: New York, NY
@@ -71,15 +83,6 @@ sections:
       highlights:
         - Developed deep learning architectures for multi-horizon time-series forecasting in the Research and Machine Intelligence team, with
           large-scale experiments over millions of time series. Advised by Dr. Vitaly Kuznetsov.
-
-    - company: University of Illinois at Chicago
-      position: PhD Thesis Research
-      start_date: 2016
-      end_date: 2019
-      highlights:
-        - Designed algorithms for learning graph structure from queries \cite{huang2017network}, graph verification \cite{janardhanan2017graph},
-          and anomaly detection in dynamic networks via non-local curvature \cite{dasgupta2020shape}. Advised by Prof. Bhaskar DasGupta and Prof.
-          Lev Reyzin.
 
   Technical Skills:
     - label: Machine Learning
