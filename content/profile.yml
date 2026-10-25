@@ -1,23 +1,23 @@
 # Who you are. This one file feeds:
 #   - the homepage (name, headline, location, contact icons)
 #   - the site title, browser tab and search-engine description
-#   - the header of the CV, on the web page and in the PDF
+#   - the header of the PDF CV (name, email, website)
 
 first_name: Mano Vikash
 last_name: Janardhanan
 
-# Shown under your name on the homepage and on the CV.
-headline: Quantitative Researcher, Balyasny Asset Management
+# Shown under your name on the homepage.
+headline: Principal ML Engineer, Equinix
 location: New York, NY
 email: mano@manovikash.com
 website: https://www.manovikash.com
 
 # One or two sentences for search engines and link previews.
 description: >
-  Quantitative Researcher at Balyasny Asset Management working on AI for finance.
+  Principal ML Engineer on Equinix's AI team, previously a Quantitative Researcher at Balyasny Asset Management.
   PhD in Mathematics from the University of Illinois at Chicago.
 
-# Profile links, shown as icons on the homepage and as links in the CV header.
+# Profile links, shown as icons on the homepage.
 # Fill in the ID or username after the colon; leave a line blank (or delete it) to hide that icon.
 # More link types: https://github.com/alshedivat/al-folio/blob/main/docs/CUSTOMIZE.md (search for "socials").
 links:

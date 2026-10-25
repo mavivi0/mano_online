@@ -1,85 +1,98 @@
 # Your CV, section by section. It is rendered twice from this one file:
 #   - the CV page on the website (/cv/)
-#   - the downloadable PDF (/assets/pdf/cv.pdf)
+#   - the PDF (cv/template.tex -> cv/main.tex -> /assets/pdf/cv.pdf)
 #
 # Don't repeat things that live elsewhere:
-#   - name, headline, email, location and links come from profile.yml
-#   - publications come from papers.bib (see the "Publications" line below)
+#   - name, email and website come from profile.yml
+#   - publications come from papers.bib (see the "Publications" line at the end)
 #
 # Section titles are free text, and sections appear in the order written here
 # (on the web page, Experience always comes first).
-# Entry formats (https://docs.rendercv.com/user_guide/yaml_input_structure/cv/):
-#   job:        company, position, location, start_date, end_date, highlights
-#   degree:     institution, area, degree, location, start_date, end_date, highlights
+# Entry formats:
+#   job:        company, position, location, start_date, end_date, summary, highlights
+#   degree:     institution, degree, area, location, start_date, end_date, summary, highlights
 #   one-liner:  label, details
-#   bullet:     bullet
-# Dates are YYYY or YYYY-MM; use "present" for an ongoing end date,
-# or a single free-text `date:` (e.g. "Summer 2018") instead of start/end.
+# Dates are YYYY or YYYY-MM; use "present" for an ongoing end date, or a single `date:` instead.
+# Text can use Markdown (*italic*, **bold**, [link](https://...)), "--" for an en dash,
+# and \cite{key} with a key from papers.bib: a numbered reference in the PDF, a link on the web.
 
 sections:
-  Experience:
-    - company: Balyasny Asset Management
-      position: Quantitative Researcher, Applied AI
-      location: New York, NY
-      start_date: 2024
-      end_date: present
-      highlights:
-        - Research and development of AI systems in support of investment teams.
-
-    - company: Balyasny Asset Management
-      position: Quantitative Researcher, Machine Learning
-      location: New York, NY
-      start_date: 2021
-      end_date: 2024
-      highlights:
-        - Long-short, market-neutral, medium-frequency alpha capture in US equities.
-        - Applied principled machine learning techniques drawn from computational learning theory.
-
-    - company: Lifion by ADP
-      position: Senior Research Scientist, Machine Learning
-      location: New York, NY
-      start_date: 2019
-      end_date: 2021
-      highlights:
-        - Developed a recommendation engine and semantic search.
-        - Led a group of three researchers.
-
-    - company: Google Research
-      position: Research Intern, Research and Machine Intelligence
-      location: New York, NY
-      date: Summer 2018
-      highlights:
-        - Machine learning for time-series forecasting, advised by Vitaly Kuznetsov.
-
   Education:
     - institution: University of Illinois at Chicago
-      area: Mathematics
       degree: PhD
-      location: Chicago, IL
+      area: Mathematics
       start_date: 2014
       end_date: 2019
-      highlights:
-        - "Advisor: Lev Reyzin"
-        - Learning and verifying hidden graphs from queries, and detecting anomalies in networks.
+      summary: "Advisor: Prof. Lev Reyzin"
 
-    - institution: Indian Institute of Science Education and Research (IISER)
-      area: Mathematics
+    - institution: Indian Institute of Science Education and Research
       degree: MS
+      area: Mathematics
       location: Thiruvananthapuram, India
       start_date: 2009
       end_date: 2014
 
-  # Filled in automatically from papers.bib. Move this line to change where the section appears.
-  Publications: papers.bib
+  Experience:
+    - company: Equinix
+      position: Principal ML Engineer, AI Team
+      start_date: 2026
+      end_date: present
 
-  Talks:
-    - label: "2018"
-      details: Graph Verification with a Betweenness Oracle. Google Research Seminar, New York, NY.
-    - label: "2017"
-      details: Graph Verification with a Betweenness Oracle. Algorithmic Learning Theory (ALT), Kyoto University, Japan.
-    - label: "2017"
-      details: Network Construction with Ordered Constraints. FSTTCS, IIT Kanpur, India.
+    - company: Balyasny Asset Management
+      position: Quantitative Researcher
+      location: New York, NY
+      start_date: 2021
+      end_date: 2026
+      highlights:
+        - Led AI/ML initiatives in the Applied AI team, building production-grade agentic AI systems and a custom domain-adapted LLM for tool use
+          in financial workflows (2023--2025).
+        - Built and deployed large-scale NLP models for financial text analysis with state-of-the-art domain-specific performance; published at
+          EMNLP 2024 \cite{anderson2024greenback}, model weights released on Hugging Face.
+        - Developed financial text embedding models by distilling Mixtral-8x22B and Llama-3.3-70B; selected a 560M-parameter final model through
+          systematic performance vs. compute trade-off evaluation.
+        - Developed and productionized ML models for alpha generation in US equities (2021--2023), applying computational learning theory for
+          model validation and generalization in non-stationary settings.
 
-  Service:
+    - company: Lifion by ADP
+      position: Research Scientist
+      location: New York, NY
+      start_date: 2019
+      end_date: 2021
+      highlights:
+        - Led an ML team of 3 researchers building recommendation and search systems for an HR tech platform; architected and deployed the
+          recommendation engine and a BERT-based semantic search system.
+        - Built real-time inference pipelines with sub-100ms latency and an A/B testing framework to drive data-driven product decisions.
+
+    - company: Google Research
+      position: Research Intern
+      location: New York, NY
+      date: 2018
+      highlights:
+        - Developed deep learning architectures for multi-horizon time-series forecasting in the Research and Machine Intelligence team, with
+          large-scale experiments over millions of time series. Advised by Dr. Vitaly Kuznetsov.
+
+    - company: University of Illinois at Chicago
+      position: PhD Thesis Research
+      start_date: 2016
+      end_date: 2019
+      highlights:
+        - Designed algorithms for learning graph structure from queries \cite{huang2017network}, graph verification \cite{janardhanan2017graph},
+          and anomaly detection in dynamic networks via non-local curvature \cite{dasgupta2020shape}. Advised by Prof. Bhaskar DasGupta and Prof.
+          Lev Reyzin.
+
+  Technical Skills:
+    - label: Machine Learning
+      details: Large Language Models, NLP, Deep Learning, Time Series Forecasting, Recommender Systems, Knowledge Graphs, Online & Reinforcement
+        Learning
+    - label: Tools
+      details: Python, C++, PyTorch, TensorFlow, Hugging Face Transformers, scikit-learn, XGBoost, NumPy, Pandas, AWS, Git, Linux
+
+  Talks & Service:
+    - label: Talks
+      details: "*Graph Verification with a Betweenness Oracle*: Google Research Seminar, New York (2018); Algorithmic Learning Theory, Kyoto
+        University (2017). *Network Construction with Ordered Constraints*: FSTTCS, IIT Kanpur (2017)."
     - label: Reviewer
       details: RANDOM 2018, ALT 2019, COLT 2019
+
+  # Filled in automatically from papers.bib. Move this line to change where the section appears.
+  Publications: papers.bib

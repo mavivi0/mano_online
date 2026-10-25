@@ -3,7 +3,7 @@
 Personal website of Mano Vikash Janardhanan, built with [al-folio](https://github.com/alshedivat/al-folio) (Jekyll) and hosted on GitHub Pages.
 
 **To change anything on the site or CV, edit the files in [`content/`](content/README.md).** Nothing is typed twice:
-one BibTeX file feeds the publications page and both CVs, and one YAML file feeds the CV web page and the CV PDF.
+one BibTeX file feeds the publications page and both CVs, and one YAML file feeds the CV web page and the LaTeX CV.
 
 ```
 content/            what you edit (see content/README.md)
@@ -12,17 +12,18 @@ content/            what you edit (see content/README.md)
   papers.bib          all publications
   cv.yml              CV sections
   photo.jpg           profile photo
+cv/template.tex     look of the LaTeX CV (moderncv); see cv/README.md
 _pages/             the three pages (home, publications, cv) - wiring only
-_plugins/content.rb hands content/ to al-folio and builds the CV PDF
-bin/build-cv        content/ -> CV PDF, via RenderCV
-_rendercv/          look of the PDF (theme, colors, fonts)
+_plugins/content.rb hands content/ to al-folio and runs bin/build-cv
+bin/build-cv        content/ -> cv/main.tex + cv/main.bib -> cv/main.pdf
 _config.yml         site settings
 ```
 
 ## How it updates
 
-Pushing to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which builds the site, builds the CV PDF
-from `content/`, and publishes both to GitHub Pages. Nothing generated is committed to the repository.
+Pushing to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which builds the site and the LaTeX CV
+from `content/` and publishes both to GitHub Pages (the PDF at `/assets/pdf/cv.pdf`). Nothing generated is committed to the
+repository; each run keeps `cv/main.tex`, `cv/main.bib` and `cv/main.pdf` as a downloadable artifact.
 
 ## Previewing on your Mac
 
@@ -30,6 +31,7 @@ One-time setup (Homebrew):
 
 ```bash
 brew install ruby imagemagick python
+brew install --cask mactex-no-gui        # LaTeX for the CV (skip if you already have MacTeX)
 echo 'export PATH="/opt/homebrew/opt/ruby/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
 bundle install
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
@@ -43,7 +45,7 @@ bundle exec jekyll serve      # open http://localhost:4000
 ```
 
 Edits in `content/` show up in the browser after a refresh, including the PDF at
-http://localhost:4000/assets/pdf/cv.pdf. To produce only the PDF: `bin/build-cv` (writes `cv.pdf`).
+http://localhost:4000/assets/pdf/cv.pdf. To build only the CV: `bin/build-cv` (writes `cv/main.tex`, `cv/main.bib`, `cv/main.pdf`).
 
 ## Upgrading al-folio
 

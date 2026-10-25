@@ -1,6 +1,6 @@
 ---
 # Copy of al_folio_core's assets/css/main.scss. The only change: the light-mode accent
-# ($purple-color) is the same blue as the PDF CV (_rendercv/design.yaml).
+# ($purple-color) is moderncv's blue, the color of the PDF CV (cv/template.tex).
 ---
 @charset "utf-8";
 
@@ -12,7 +12,7 @@
    Make sure `_sass/_variables.scss` declares `$max-content-width: 72rem !default;` */
 @use "variables" with (
   $max-content-width: {{ site.max_width | default:  "930px" }},
-  $purple-color: #004f90
+  $purple-color: #3873b3
 );
 
 /* Your project partials — convert these files to `@use "variables";`
