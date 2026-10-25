@@ -1,6 +1,7 @@
 ---
-# Copy of al_folio_core's assets/css/main.scss. The only change: the light-mode accent
-# ($purple-color) is moderncv's blue, the color of the PDF CV (cv/template.tex).
+# Copy of al_folio_core's assets/css/main.scss with two changes: the light-mode accent
+# ($purple-color) is moderncv's blue, the color of the PDF CV (cv/template.tex), and the CV
+# page rules at the end.
 ---
 @charset "utf-8";
 
@@ -33,3 +34,19 @@
 @use "tabs";
 @use "teachings";
 @use "typograms";
+
+// The CV page (al_folio_cv) is written with Bootstrap list and table markup that this Tailwind
+// build leaves unstyled: remove the list bullets and indent and the table-cell rules, and line
+// the date badges up on the left edge of their column instead of centering them per entry.
+.cv {
+  .list-group {
+    list-style: none;
+    padding-left: 0;
+  }
+  .table-cv td {
+    border: 0;
+  }
+  .date-column {
+    text-align: left;
+  }
+}
