@@ -31,8 +31,11 @@ RUN apt-get update -y && \
         nodejs \
         procps \
         python3-pip \
-        zlib1g-dev && \
-    pip --no-cache-dir install --upgrade --break-system-packages nbconvert
+        zlib1g-dev
+
+# Python tools for the CV PDF
+COPY requirements.txt /tmp/requirements.txt
+RUN pip --no-cache-dir install --break-system-packages -r /tmp/requirements.txt
 
 # clean up
 RUN apt-get clean && \
