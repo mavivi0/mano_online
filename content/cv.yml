@@ -6,8 +6,9 @@
 #   - name, email and website come from profile.yml
 #   - publications come from papers.bib (see the "Publications" line at the end)
 #
-# Section titles are free text, and sections appear in the order written here
-# (on the web page, Experience always comes first).
+# Section titles are free text, and sections appear in the order written here (the web page
+# always puts Experience first, so keep it first here). Within a section, the web page lists
+# entries by end date, newest first: write them in that order so the PDF matches.
 # Entry formats:
 #   job:        company, position, location, start_date, end_date, summary, highlights
 #   degree:     institution, degree, area, location, start_date, end_date, summary, highlights
@@ -17,21 +18,6 @@
 # and \cite{key} with a key from papers.bib: a numbered reference in the PDF, a link on the web.
 
 sections:
-  Education:
-    - institution: University of Illinois at Chicago
-      degree: PhD
-      area: Mathematics
-      start_date: 2014
-      end_date: 2019
-      summary: "Advisor: Prof. Lev Reyzin"
-
-    - institution: Indian Institute of Science Education and Research
-      degree: MS
-      area: Mathematics
-      location: Thiruvananthapuram, India
-      start_date: 2009
-      end_date: 2014
-
   Experience:
     - company: Equinix
       position: Principal ML Engineer, AI Team
@@ -64,6 +50,16 @@ sections:
           recommendation engine and a BERT-based semantic search system.
         - Built real-time inference pipelines with sub-100ms latency and an A/B testing framework to drive data-driven product decisions.
 
+    - company: University of Illinois at Chicago
+      position: PhD Thesis Research
+      location: Chicago, IL
+      start_date: 2016
+      end_date: 2019
+      highlights:
+        - Designed algorithms for learning graph structure from queries \cite{huang2017network}, graph verification \cite{janardhanan2017graph},
+          and anomaly detection in dynamic networks via non-local curvature \cite{dasgupta2020shape}. Advised by Prof. Bhaskar DasGupta and Prof.
+          Lev Reyzin.
+
     - company: Google Research
       position: Research Intern
       location: New York, NY
@@ -72,14 +68,21 @@ sections:
         - Developed deep learning architectures for multi-horizon time-series forecasting in the Research and Machine Intelligence team, with
           large-scale experiments over millions of time series. Advised by Dr. Vitaly Kuznetsov.
 
-    - company: University of Illinois at Chicago
-      position: PhD Thesis Research
-      start_date: 2016
+  Education:
+    - institution: University of Illinois at Chicago
+      degree: PhD
+      area: Mathematics
+      location: Chicago, IL
+      start_date: 2014
       end_date: 2019
-      highlights:
-        - Designed algorithms for learning graph structure from queries \cite{huang2017network}, graph verification \cite{janardhanan2017graph},
-          and anomaly detection in dynamic networks via non-local curvature \cite{dasgupta2020shape}. Advised by Prof. Bhaskar DasGupta and Prof.
-          Lev Reyzin.
+      summary: "Advisor: Prof. Lev Reyzin"
+
+    - institution: Indian Institute of Science Education and Research
+      degree: MS
+      area: Mathematics
+      location: Thiruvananthapuram, India
+      start_date: 2009
+      end_date: 2014
 
   Technical Skills:
     - label: Machine Learning
