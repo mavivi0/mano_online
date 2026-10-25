@@ -1,0 +1,79 @@
+%# Layout of the PDF CV. bin/build-cv fills this in from content/ and writes main.tex,
+%# main.bib and main.pdf next to it. Edit this file to change the look; edit content/
+%# to change what the CV says.
+%#
+%# Template syntax (Jinja2): lines starting with %% are logic, lines starting with %# are
+%# template-only comments, \VAR{...} inserts a value. |tex escapes text from content/ and
+%# turns its Markdown (*italic*, **bold**, [text](url)) into LaTeX; \cite{key} passes through.
+%#
+%# Based on the "ModernCV" template from LaTeXTemplates.com (original author: Xavier Danaux,
+%# license: CC BY-NC-SA 3.0).
+
+\documentclass[10pt,a4paper,sans]{moderncv} % Font sizes: 10, 11, or 12; paper sizes: a4paper, letterpaper, a5paper, legalpaper, executivepaper or landscape; font families: sans or roman
+
+\moderncvstyle{classic} % CV theme - options include: 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{blue} % CV color - options include: 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+
+\usepackage[sorting=ydnt, maxbibnames=99, backend=bibtex, doi=false, isbn=false, url=false, eprint=false]{biblatex}
+\addbibresource{main.bib}
+\nocite{*}
+\DefineBibliographyStrings{english}{mathesis = {MS thesis}}
+
+\usepackage{textcomp}
+\usepackage[scale=0.8]{geometry} % Reduce document margins
+\setlength{\hintscolumnwidth}{2.1cm} % Width of the dates column
+\renewcommand*\httplink[2][]{{\urlstyle{sf}\expandafter\href#2}}
+
+% Tighter vertical rhythm so that everything except publications fits on page one
+\makeatletter
+\RenewDocumentCommand{\section}{sm}{%
+  \par\addvspace{2ex}%
+  \phantomsection{}%
+  \addcontentsline{toc}{section}{#2}%
+  \cvitem[0ex]{\strut\raggedleft\raisebox{\baseletterheight}{\color{color1}\rule{\hintscolumnwidth}{0.95ex}}}{\strut\sectionstyle{#2}}%
+  \par\nobreak\addvspace{0.6ex}\@afterheading}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CONTACT INFORMATION (content/profile.yml)
+%----------------------------------------------------------------------------------------
+
+\firstname{\VAR{profile.first_name|tex}}
+\familyname{\VAR{profile.last_name|tex}}
+
+\title{Curriculum Vitae}
+\address{}{}
+\email{\VAR{profile.email}}
+\homepage{{\VAR{profile.website}}{}}
+
+%----------------------------------------------------------------------------------------
+%	SECTIONS (content/cv.yml), PUBLICATIONS (content/papers.bib)
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\makecvtitle
+
+%% for title, entries in sections.items()
+%----------------------------------------------------------------------------------------
+%	\VAR{title|upper}
+%----------------------------------------------------------------------------------------
+%% if entries is string
+%# The `Publications: papers.bib` line: start a new page and list main.bib.
+\clearpage
+\printbibliography[title={\VAR{title|tex}}]
+%% else
+\section{\VAR{title|tex}}
+%% for e in entries
+%% if e.label is defined
+\cvitem{\VAR{e.label|tex}}{\VAR{e.details|tex}}
+%% elif e.institution is defined
+\cventry{\VAR{e|dates}}{\VAR{[e.degree, e.area]|select|join(", ")|tex}}{\VAR{e.institution|tex}}{\VAR{e.location|tex}}{\VAR{e.summary|tex}}{\VAR{e.highlights|bullets}}
+%% else
+\cventry{\VAR{e|dates}}{\VAR{e.position|tex}}{\VAR{e.company|tex}}{\VAR{e.location|tex}}{}{\VAR{e|description}}
+%% endif
+%% endfor
+%% endif
+%% endfor
+%----------------------------------------------------------------------------------------
+\end{document}
