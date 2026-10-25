@@ -23,6 +23,9 @@ jobs:
     # The TeX Live, ImageMagick and Ruby setup below is tested on Ubuntu 24.04; move to a newer
     # image deliberately, not through ubuntu-latest.
     runs-on: ubuntu-24.04
+    timeout-minutes: 30 # a normal deploy takes about 3 minutes
+    env:
+      APT_PACKAGES: imagemagick latexmk texlive-latex-extra texlive-bibtex-extra texlive-fonts-extra
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -36,11 +39,38 @@ jobs:
         with:
           python-version: "3.13"
           cache: pip
+      # The LaTeX and ImageMagick packages (~1 GB) are cached so a deploy doesn't depend on a fresh
+      # download from Ubuntu's servers. The key includes the runner image version, so the cached
+      # packages always match the system they are installed on; a new image downloads them once.
+      - name: Name the package cache
+        id: debs-key
+        run: echo "key=debs-$ImageOS-$ImageVersion-$(echo "$APT_PACKAGES" | sha256sum | cut -c1-12)" >> "$GITHUB_OUTPUT"
+      - name: Restore cached packages
+        id: debs
+        uses: actions/cache/restore@v6
+        with:
+          path: ~/debs
+          key: ${{ steps.debs-key.outputs.key }}
       - name: Install image and CV tools
+        timeout-minutes: 10 # normally under 3 minutes; fail instead of hanging on a stalled download
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends imagemagick latexmk texlive-latex-extra texlive-bibtex-extra texlive-fonts-extra
+          apt="sudo apt-get -y --no-install-recommends -o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30"
+          if [ "${{ steps.debs.outputs.cache-hit }}" != "true" ]; then
+            mkdir -p ~/debs/partial
+            sudo apt-get update -o Acquire::Retries=3
+            $apt install --download-only -o Dir::Cache::archives="$HOME/debs" $APT_PACKAGES
+            sudo rm -rf ~/debs/partial ~/debs/lock
+            sudo chown -R "$(id -u):$(id -g)" ~/debs
+          fi
+          # dpkg installs straight from the files, never from the network (apt would try the mirror first).
+          sudo dpkg -i ~/debs/*.deb
           pip install -r requirements.txt
+      - name: Save downloaded packages
+        if: steps.debs.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: ~/debs
+          key: ${{ steps.debs-key.outputs.key }}
       - name: Build site and CV PDF
         env:
           JEKYLL_ENV: production
