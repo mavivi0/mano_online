@@ -58,7 +58,7 @@ module ContentFolder
       next unless page.data["layout"] == "about"
 
       page.data["subtitle"] = profile["headline"]
-      page.data["profile"]["more_info"] = "<p>#{profile["location"]}</p>" if page.data["profile"]
+      page.data["profile"]["more_info"] = "<p>#{profile["location"]}</p>" if page.data["profile"] && profile["location"]
     end
 
     # content/ is input only: don't copy it into the site.
