@@ -1,12 +1,9 @@
 ---
 layout: cv
 permalink: /cv/
-title: CV
+title: cv
 nav: true
-nav_order: 5
-cv_pdf: /assets/pdf/cv.pdf # generated from assets/json/resume.json + _bibliography/papers.bib by bin/generate_cv.py
-cv_format: jsonresume # options: rendercv, jsonresume
-description: My curriculum vitae.
-toc:
-  sidebar: left
+nav_order: 2
+cv_pdf: /assets/pdf/cv.pdf # built from content/ by bin/build-cv
+cv_format: rendercv
 ---

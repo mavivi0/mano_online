@@ -1,0 +1,142 @@
+#!/usr/bin/env python3
+"""Build the CV PDF from content/ with RenderCV.
+
+Merges content/profile.yml (header), content/cv.yml (sections) and any
+`<Section>: <file>.bib` line in cv.yml (publications) into one RenderCV input,
+then renders it with the look defined in _rendercv/design.yaml.
+
+Jekyll runs this automatically (see _plugins/content.rb); you only need to run
+it by hand to look at the PDF on its own:
+
+    bin/build-cv                      # writes cv.pdf in the repository root
+    bin/build-cv --out ~/Desktop/cv.pdf
+
+Needs: python3 -m pip install -r requirements.txt
+"""
+
+import argparse
+import codecs
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+import latexcodec  # noqa: F401  (registers the "ulatex" codec)
+import yaml
+from pybtex.database import parse_file
+
+ROOT = Path(__file__).resolve().parent.parent
+CONTENT = ROOT / "content"
+DESIGN = ROOT / "_rendercv" / "design.yaml"
+
+# profile.yml `links:` key -> RenderCV social network
+SOCIAL_NETWORKS = {
+    "scholar_userid": "Google Scholar",
+    "linkedin_username": "LinkedIn",
+    "github_username": "GitHub",
+    "gitlab_username": "GitLab",
+    "orcid_id": "ORCID",
+    "research_gate_profile": "ResearchGate",
+    "x_username": "X",
+}
+
+
+def tex(value):
+    """BibTeX/LaTeX field -> plain text."""
+    text = codecs.decode(str(value), "ulatex")
+    return " ".join(text.replace("{", "").replace("}", "").split())
+
+
+def author_name(person):
+    parts = person.first_names + person.middle_names + person.prelast_names + person.last_names
+    return tex(" ".join(parts))
+
+
+def venue(entry):
+    f = entry.fields
+    if entry.type == "phdthesis":
+        return f"PhD thesis, {tex(f['school'])}"
+    if entry.type == "mastersthesis":
+        return f"Master's thesis, {tex(f['school'])}"
+    text = tex(f.get("journal") or f.get("booktitle") or f.get("publisher") or "")
+    if entry.type == "article" and "volume" in f:
+        text += f" {tex(f['volume'])}"
+        if "number" in f:
+            text += f"({tex(f['number'])})"
+    if "pages" in f:
+        text += f", {tex(f['pages'])}"
+    return text
+
+
+def publication(entry, self_name):
+    f = entry.fields
+    authors = [author_name(p) for p in entry.persons.get("author", [])]
+    item = {
+        "title": tex(f["title"]),
+        "authors": [f"**{a}**" if a == self_name else a for a in authors],
+        "journal": venue(entry),
+        "date": int(f["year"]),
+    }
+    if "doi" in f:
+        item["doi"] = f["doi"]
+    elif "url" in f:
+        item["url"] = f["url"]
+    elif "arxiv" in f:
+        item["url"] = f"https://arxiv.org/abs/{f['arxiv']}"
+    return item
+
+
+def publications(bib_path, self_name):
+    entries = parse_file(bib_path, bib_format="bibtex").entries.values()
+    # Newest first; ties keep the order of the .bib file.
+    return sorted((publication(e, self_name) for e in entries), key=lambda p: p["date"], reverse=True)
+
+
+def rendercv_input():
+    profile = yaml.safe_load((CONTENT / "profile.yml").read_text())
+    cv = yaml.safe_load((CONTENT / "cv.yml").read_text())
+    name = f"{profile['first_name']} {profile['last_name']}"
+
+    sections = {}
+    for title, entries in cv["sections"].items():
+        if isinstance(entries, str) and entries.endswith(".bib"):
+            entries = publications(CONTENT / entries, name)
+        sections[title] = entries
+
+    header = {
+        "name": name,
+        "headline": profile.get("headline"),
+        "location": profile.get("location"),
+        "email": profile.get("email"),
+        "website": profile.get("website"),
+        "social_networks": [
+            {"network": network, "username": str(profile["links"][key])}
+            for key, network in SOCIAL_NETWORKS.items()
+            if (profile.get("links") or {}).get(key)
+        ],
+    }
+    return {
+        "cv": {key: value for key, value in header.items() if value} | {"sections": sections},
+        "design": yaml.safe_load(DESIGN.read_text())["design"],
+    }
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--out", type=Path, default=ROOT / "cv.pdf", help="where to write the PDF")
+    out = parser.parse_args().out.resolve()
+    out.parent.mkdir(parents=True, exist_ok=True)
+
+    with tempfile.TemporaryDirectory() as tmp:
+        source = Path(tmp) / "cv.yaml"
+        source.write_text(yaml.safe_dump(rendercv_input(), allow_unicode=True, sort_keys=False))
+        command = ["rendercv", "render", str(source), "--pdf-path", str(out), "--quiet", "-nomd", "-nohtml", "-nopng"]
+        command += ["--typst-path", str(Path(tmp) / "cv.typ")]
+        result = subprocess.run(command, capture_output=True, text=True)
+    if result.returncode != 0 or not out.exists():
+        sys.exit(f"RenderCV failed:\n{result.stdout}{result.stderr}")
+    print(f"Wrote {out.relative_to(ROOT) if out.is_relative_to(ROOT) else out}")
+
+
+if __name__ == "__main__":
+    main()

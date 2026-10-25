@@ -1,0 +1,15 @@
+# Look of the PDF CV. The content comes from content/; this file is only styling.
+# Options: https://docs.rendercv.com/user_guide/yaml_input_structure/design/
+design:
+  theme: classic
+  page:
+    size: us-letter
+    show_footer: true
+    show_top_note: false
+  typography:
+    alignment: left
+  sections:
+    show_time_spans_in: []
+  templates:
+    publication_entry:
+      main_column: "**TITLE**\nAUTHORS\n*JOURNAL*. URL"

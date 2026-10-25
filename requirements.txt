@@ -1,4 +1,4 @@
-jinja2
-nbconvert
-pyyaml
-scholarly
+# Python tools for the CV PDF (bin/build-cv, run automatically by `jekyll build`).
+# Install with: python3 -m pip install -r requirements.txt
+rendercv[full]==2.8
+pybtex==0.26.1

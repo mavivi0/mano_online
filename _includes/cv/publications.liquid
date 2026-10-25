@@ -1,0 +1,6 @@
+{% comment %}
+  Overrides al_folio_cv's publications section. Instead of entries typed into the CV
+  data, it lists content/papers.bib (cv.yml says `Publications: papers.bib`), so papers
+  are kept in exactly one place.
+{% endcomment %}
+<div class="publications">{% bibliography --group_by none %}</div>

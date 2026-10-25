@@ -1,0 +1,85 @@
+# Your CV, section by section. It is rendered twice from this one file:
+#   - the CV page on the website (/cv/)
+#   - the downloadable PDF (/assets/pdf/cv.pdf)
+#
+# Don't repeat things that live elsewhere:
+#   - name, headline, email, location and links come from profile.yml
+#   - publications come from papers.bib (see the "Publications" line below)
+#
+# Section titles are free text, and sections appear in the order written here
+# (on the web page, Experience always comes first).
+# Entry formats (https://docs.rendercv.com/user_guide/yaml_input_structure/cv/):
+#   job:        company, position, location, start_date, end_date, highlights
+#   degree:     institution, area, degree, location, start_date, end_date, highlights
+#   one-liner:  label, details
+#   bullet:     bullet
+# Dates are YYYY or YYYY-MM; use "present" for an ongoing end date,
+# or a single free-text `date:` (e.g. "Summer 2018") instead of start/end.
+
+sections:
+  Experience:
+    - company: Balyasny Asset Management
+      position: Quantitative Researcher, Applied AI
+      location: New York, NY
+      start_date: 2024
+      end_date: present
+      highlights:
+        - Research and development of AI systems in support of investment teams.
+
+    - company: Balyasny Asset Management
+      position: Quantitative Researcher, Machine Learning
+      location: New York, NY
+      start_date: 2021
+      end_date: 2024
+      highlights:
+        - Long-short, market-neutral, medium-frequency alpha capture in US equities.
+        - Applied principled machine learning techniques drawn from computational learning theory.
+
+    - company: Lifion by ADP
+      position: Senior Research Scientist, Machine Learning
+      location: New York, NY
+      start_date: 2019
+      end_date: 2021
+      highlights:
+        - Developed a recommendation engine and semantic search.
+        - Led a group of three researchers.
+
+    - company: Google Research
+      position: Research Intern, Research and Machine Intelligence
+      location: New York, NY
+      date: Summer 2018
+      highlights:
+        - Machine learning for time-series forecasting, advised by Vitaly Kuznetsov.
+
+  Education:
+    - institution: University of Illinois at Chicago
+      area: Mathematics
+      degree: PhD
+      location: Chicago, IL
+      start_date: 2014
+      end_date: 2019
+      highlights:
+        - "Advisor: Lev Reyzin"
+        - Learning and verifying hidden graphs from queries, and detecting anomalies in networks.
+
+    - institution: Indian Institute of Science Education and Research (IISER)
+      area: Mathematics
+      degree: MS
+      location: Thiruvananthapuram, India
+      start_date: 2009
+      end_date: 2014
+
+  # Filled in automatically from papers.bib. Move this line to change where the section appears.
+  Publications: papers.bib
+
+  Talks:
+    - label: "2018"
+      details: Graph Verification with a Betweenness Oracle. Google Research Seminar, New York, NY.
+    - label: "2017"
+      details: Graph Verification with a Betweenness Oracle. Algorithmic Learning Theory (ALT), Kyoto University, Japan.
+    - label: "2017"
+      details: Network Construction with Ordered Constraints. FSTTCS, IIT Kanpur, India.
+
+  Service:
+    - label: Reviewer
+      details: RANDOM 2018, ALT 2019, COLT 2019
