@@ -199,7 +199,7 @@ kramdown:
 include: ["_pages"]
 exclude:
   - requirements.txt
-  - cv.pdf
+  - cv/ # the LaTeX CV; its PDF is published at /assets/pdf/cv.pdf
   - AGENTS.md
   - al-folio-upgrade-report.md
   - bin/

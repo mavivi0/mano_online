@@ -27,13 +27,17 @@ RUN apt-get update -y && \
         git \
         imagemagick \
         inotify-tools \
+        latexmk \
         locales \
         nodejs \
         procps \
         python3-pip \
+        texlive-bibtex-extra \
+        texlive-fonts-extra \
+        texlive-latex-extra \
         zlib1g-dev
 
-# Python tools for the CV PDF
+# Python tools for the CV (bin/build-cv)
 COPY requirements.txt /tmp/requirements.txt
 RUN pip --no-cache-dir install --break-system-packages -r /tmp/requirements.txt
 

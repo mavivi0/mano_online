@@ -20,5 +20,7 @@ vendor
 __pycache__/
 *.pyc
 
-# Output of a manual `bin/build-cv` run (the site build makes its own copy)
-/cv.pdf
+# cv/ is rebuilt from content/ by bin/build-cv; only the template is a source file
+/cv/*
+!/cv/template.tex
+!/cv/README.md

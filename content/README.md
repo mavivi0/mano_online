@@ -5,17 +5,19 @@ and the website and the CV PDF are rebuilt from it within a couple of minutes.
 
 | File          | What it holds                                                      | Where it shows up                                              |
 | ------------- | ------------------------------------------------------------------ | -------------------------------------------------------------- |
-| `profile.yml` | Name, headline, location, email, website, profile links            | Homepage, browser tab, link previews, CV header (web + PDF)    |
+| `profile.yml` | Name, headline, location, email, website, profile links            | Homepage, browser tab, link previews, PDF CV header            |
 | `bio.md`      | The paragraphs on your homepage (Markdown)                          | Homepage                                                       |
 | `papers.bib`  | Every publication, in BibTeX                                        | Publications page, homepage "selected", CV publications (web + PDF) |
-| `cv.yml`      | CV sections: experience, education, talks, service, ...             | CV page (`/cv/`) and the PDF (`/assets/pdf/cv.pdf`)            |
+| `cv.yml`      | CV sections: experience, education, skills, talks, ...              | CV page (`/cv/`) and the LaTeX CV (`cv/main.tex` → PDF)        |
 | `photo.jpg`   | Profile photo                                                      | Homepage                                                       |
 
 ## Common edits
 
 - **New paper:** add a BibTeX entry to `papers.bib`. Add `selected = {true}` to also show it on the
   homepage. It appears on the publications page and in both CVs automatically.
-- **New job or talk:** add an entry under the right section of `cv.yml`.
+- **New job or talk:** add an entry under the right section of `cv.yml`. To point to a paper from a CV
+  bullet, write `\cite{key}` with the key from `papers.bib`: it becomes a numbered reference in the PDF and a
+  link on the website.
 - **New photo:** replace `photo.jpg`, keeping the file name.
 - **Reorder CV sections:** move them around in `cv.yml`. The `Publications: papers.bib` line marks
   where the publications go.

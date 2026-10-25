@@ -1,4 +1,6 @@
-# Python tools for the CV PDF (bin/build-cv, run automatically by `jekyll build`).
+# Python tools for the CV (bin/build-cv, run automatically by `jekyll build`).
 # Install with: python3 -m pip install -r requirements.txt
-rendercv[full]==2.8
+# The CV also needs LaTeX with latexmk, moderncv and biblatex (see README.md).
+jinja2==3.1.6
 pybtex==0.26.1
+pyyaml==6.0.3
