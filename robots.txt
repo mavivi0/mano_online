@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://www.manovikash.com/mano_online/sitemap.xml
+Sitemap: https://www.manovikash.com/sitemap.xml
