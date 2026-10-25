@@ -21,7 +21,7 @@ description: >
 # Fill in the ID or username after the colon; leave a line blank (or delete it) to hide that icon.
 # More link types: https://github.com/alshedivat/al-folio/blob/main/docs/CUSTOMIZE.md (search for "socials").
 links:
-  scholar_userid: # Google Scholar: the "user=" part of your profile URL
+  scholar_userid: cqyNxLIAAAAJ # Google Scholar: the "user=" part of your profile URL
   linkedin_username: # linkedin.com/in/<this part>
   github_username:
   orcid_id:
