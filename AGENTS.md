@@ -29,6 +29,9 @@ bin/build-cv                  # just the CV, in cv/
 - On Ubuntu: `apt-get install latexmk texlive-latex-extra texlive-bibtex-extra texlive-fonts-extra`.
 - Deploys push the built site to the `gh-pages` branch. CI sets the baseurl: empty when a root `CNAME` file exists (custom
   domain), `/mano_online` otherwise (mavivi0.github.io/mano_online). Locally the baseurl is empty.
+- The deploy caches the `.deb` files for `APT_PACKAGES` (key: runner image version + package list) and installs them with
+  `dpkg -i`, so only the first run on a new runner image downloads from Ubuntu's mirrors. Change the tool set by editing
+  `APT_PACKAGES` in `.github/workflows/deploy.yml`.
 
 ## Theme overrides
 
