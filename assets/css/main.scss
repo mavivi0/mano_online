@@ -51,15 +51,30 @@
   }
   .date-column {
     text-align: left;
+    // The theme also shifts the column 15px left, past the card's text edge and almost onto its border.
+    transform: translateY(-5px);
+  }
+  // Beside the title, the theme's date column is 1/6 of the row: below about 1000px wide that is
+  // narrower than "2026 - PRESENT" or "Thiruvananthapuram, India", which then ran into the title.
+  @media (min-width: 576px) {
+    .date-column {
+      flex: 0 0 max(16.6667%, 10.5rem);
+      max-width: max(16.6667%, 10.5rem);
+    }
+    .date-column + div {
+      flex: 1 1 0;
+      max-width: none;
+      min-width: 0;
+    }
   }
 }
 
 // Each CV entry's text column has `mt-2 mt-md-0`, but the theme's CSS defines `mt-2` after
 // `mt-md-0` in its `components` layer, so `mt-2` wins at every width and puts the title 8px
 // below its date badge. An `!important` outside that layer can't override it; a more specific
-// rule inside the same layer can.
+// rule inside the same layer can. It starts at 576px, where the date moves beside the title.
 @layer components {
-  @media (min-width: 768px) {
+  @media (min-width: 576px) {
     .cv .mt-md-0 {
       margin-top: 0 !important;
     }
