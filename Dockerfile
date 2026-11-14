@@ -23,6 +23,7 @@ LABEL authors="Amir Pourmand,George Araújo" \
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
         build-essential \
+        cm-super \
         curl \
         git \
         imagemagick \

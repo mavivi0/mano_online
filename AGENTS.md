@@ -26,7 +26,9 @@ bin/build-cv                  # just the CV, in cv/
 ```
 
 - With `CV_PDF_REQUIRED=1` (set in CI) a failed PDF build fails the site build; without it, it is a warning.
-- On Ubuntu: `apt-get install latexmk texlive-latex-extra texlive-bibtex-extra texlive-fonts-extra`.
+- On Ubuntu: `apt-get install latexmk texlive-latex-extra texlive-bibtex-extra texlive-fonts-extra cm-super`. `cm-super`
+  holds the fonts for `$`, `€` and similar symbols; without it they are bitmaps, and one in a wrapped line of CV text
+  stops the PDF build.
 - Deploys push the built site to the `gh-pages` branch. CI sets the baseurl: empty when a root `CNAME` file exists (custom
   domain), `/mano_online` otherwise (mavivi0.github.io/mano_online). Locally the baseurl is empty.
 - The deploy caches the `.deb` files for `APT_PACKAGES` (key: runner image version + package list) and installs them with

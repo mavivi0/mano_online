@@ -25,7 +25,9 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30 # a normal deploy takes about 3 minutes
     env:
-      APT_PACKAGES: imagemagick latexmk texlive-latex-extra texlive-bibtex-extra texlive-fonts-extra
+      # cm-super holds the fonts for $, € and similar symbols. Without it they are bitmaps, and one
+      # in a line of CV text that wraps stops the PDF build.
+      APT_PACKAGES: imagemagick latexmk texlive-latex-extra texlive-bibtex-extra texlive-fonts-extra cm-super
     steps:
       - name: Checkout
         uses: actions/checkout@v7
