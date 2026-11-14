@@ -67,6 +67,19 @@
       min-width: 0;
     }
   }
+  // Below 576px the date sits above its title. As the theme spaces it, each date is 8px under the
+  // previous entry and 30px above its own title, so it reads as the date of the wrong job.
+  @media (max-width: 575.98px) {
+    .list-group-item + .list-group-item {
+      margin-top: 0.75rem;
+    }
+    .date-column {
+      transform: none; // the 5px lift lines the badge up with a title beside it
+    }
+    .location {
+      margin-bottom: 0;
+    }
+  }
 }
 
 // Each CV entry's text column has `mt-2 mt-md-0`, but the theme's CSS defines `mt-2` after
