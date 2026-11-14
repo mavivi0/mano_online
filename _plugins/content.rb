@@ -23,6 +23,8 @@ module ContentFolder
   CITE = /\\cite\{([^}]*)\}/
 
   # The PDF is built into Jekyll's cache, so it is copied into _site like any other file.
+  # relative_path is what jekyll-sitemap lists and what `defaults` in _config.yml match on;
+  # left alone it is the cache file's name, a link that does not exist.
   class PdfFile < Jekyll::StaticFile
     def initialize(site, path)
       super(site, File.dirname(path), "", File.basename(path))
@@ -30,6 +32,7 @@ module ContentFolder
 
     def destination(dest) = File.join(dest, PDF_URL)
     def url = PDF_URL
+    def relative_path = PDF_URL
   end
 
   module_function
