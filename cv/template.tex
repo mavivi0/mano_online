@@ -22,7 +22,6 @@
 \usepackage{textcomp}
 \usepackage[scale=0.8]{geometry} % Reduce document margins
 \setlength{\hintscolumnwidth}{2.1cm} % Width of the dates column
-\renewcommand*\httplink[2][]{{\urlstyle{sf}\expandafter\href#2}}
 
 % Tighter vertical rhythm so that everything except publications fits on page one
 \makeatletter
@@ -44,7 +43,7 @@
 \title{Curriculum Vitae}
 \address{}{}
 \email{\VAR{profile.email}}
-\homepage{{\VAR{profile.website}}{}}
+\homepage{\VAR{profile.website.split("://")|last}} % without the https://, which moderncv adds to the link itself
 
 %----------------------------------------------------------------------------------------
 %	SECTIONS (content/cv.yml), PUBLICATIONS (content/papers.bib)
