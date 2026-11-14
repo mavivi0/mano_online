@@ -2,5 +2,5 @@
 # Install with: python3 -m pip install -r requirements.txt
 # The CV also needs LaTeX with latexmk, moderncv and biblatex (see README.md).
 jinja2==3.1.6
-pybtex==0.26.1
+pybtex==0.26.1 # bin/build-cv overrides a private method of its BibTeX writer: after an upgrade, check a title with \& still builds
 pyyaml==6.0.3
